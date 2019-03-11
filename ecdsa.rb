@@ -15,14 +15,14 @@ N = 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551
 def main
   gf = GaloisField.new(N)
 
-  priv = 17
+  priv = gf.element(rand(1...N))
   pub = G.scholar(priv)
   msg = gf.element(99999999)
 
-  k = gf.element(123)
+  k = gf.element(rand(1...N))
   p0 = G.scholar(k)
   r = gf.element(p0.x.to_i)
-  s = (msg + r * gf.element(priv)) / k
+  s = (msg + r * priv) / k
 
   puts "sign"
   puts "r: #{r.to_i}"
