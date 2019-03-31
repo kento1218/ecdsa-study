@@ -1,6 +1,7 @@
 require "./galois_field"
 require "./elliptic_curve"
 
+# ECDSA の実装; 楕円曲線パラメータは NIST P256 を使用
 module ECDSA
   Curve = EllipticCurve.new(
     GaloisField.new(0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF),

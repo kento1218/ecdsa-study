@@ -60,14 +60,15 @@ end
 
 class EllipticCurveTest < MiniTest::Test
   def setup
-    # NIST-P256 の曲線パラメータを使用
+    # NIST P256 の曲線パラメータを使用
     @curve = EllipticCurve.new(
       GaloisField.new(0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF),
       0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC,
       0x5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B
     )
 
-    # NIST-P256 のベースポイントのスカラ倍点をケースに使用
+    # NIST P256 のベースポイントのスカラ倍点をケースに使用
+    # 値は http://point-at-infinity.org/ecc/nisttv より
     @p1 = @curve.point(
       0x6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296,
       0x4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5
@@ -128,7 +129,8 @@ end
 
 class ECDSATest < MiniTest::Test
   def setup
-    # NIST のテストベクターを使用;  http://csrc.nist.gov/groups/STM/cavp/documents/components/186-3ecdsasiggencomponenttestvectors.zip
+    # NIST のテストベクターを使用
+    # http://csrc.nist.gov/groups/STM/cavp/documents/components/186-3ecdsasiggencomponenttestvectors.zip
     @message = 0x44acf6b7e36c1342c2c5897204fe09504e1e2efb1a900377dbc4e7a6a133ec56
     @d = 0x519b423d715f8b581f4fa8ee59f4771a5b44c8130b4e3eacca54a56dda72b464
     @k = 0x94a1bbb14b906a61a280f245f9e93c7f3b4a6247824f5d33b9670787642a68de

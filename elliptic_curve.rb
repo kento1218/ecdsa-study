@@ -1,5 +1,6 @@
 require "./galois_field"
 
+# 有限体 gf 上の楕円曲線 y^2 = x^3 + ax + b の点とその演算を表すクラス
 class EllipticCurve
 
   module PointMixin

@@ -1,6 +1,6 @@
 module Util
   def self.egcd(a, b)
-    # http://www.tbasic.org/reference/old/ExEuclid.html
+    # http://www.tbasic.org/reference/old/ExEuclid.html を参考
 
     x0 = 0; x1 = 1
     y0 = 1; y1 = 0

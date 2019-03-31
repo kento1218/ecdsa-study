@@ -40,7 +40,6 @@ class GaloisField
   end
 
   def initialize(n)
-    # check p.prime? ...?
     @n = n
   end
 
