@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "./util"
 require "./galois_field"
 require "./elliptic_curve"
+require "./ecdsa"
 
 class UtilTest < MiniTest::Test
   def test_egcd
@@ -122,5 +123,34 @@ class EllipticCurveTest < MiniTest::Test
     assert(@p1 == p1a)
     assert(@p2 != @p1)
     assert(@curve.infinity == @curve.infinity)
+  end
+end
+
+class ECDSATest < MiniTest::Test
+  def setup
+    # NIST のテストベクターを使用;  http://csrc.nist.gov/groups/STM/cavp/documents/components/186-3ecdsasiggencomponenttestvectors.zip
+    @message = 0x44acf6b7e36c1342c2c5897204fe09504e1e2efb1a900377dbc4e7a6a133ec56
+    @d = 0x519b423d715f8b581f4fa8ee59f4771a5b44c8130b4e3eacca54a56dda72b464
+    @k = 0x94a1bbb14b906a61a280f245f9e93c7f3b4a6247824f5d33b9670787642a68de
+    @px = 0x1ccbe91c075fc7f4f033bfa248db8fccd3565de94bbfb12f3c59ff46c271bf83
+    @py = 0xce4014c68811f9a21a1fdb2c0e6113e06db7ca93b7404e78dc7ccd5ca89a4ca9
+    @r = 0xf3ac8061b514795b8843e3d6629527ed2afd6b1f6a555a7acabb5e6f79c8c2ac
+    @s = 0x8bf77819ca05a6b2786c76262bf7371cef97b218e96f175a3ccdda2acc058903
+  end
+
+  def test_sign
+    key = ECDSA::Key.new(@d)
+    px, py = key.pub
+    r,s = key.sign(@message, @k)
+
+    assert_equal(px, @px)
+    assert_equal(py, @py)
+    assert_equal(r, @r)
+    assert_equal(s, @s)
+  end
+
+  def test_verify
+    result = ECDSA.verify(@message, @px, @py, @r, @s)
+    assert(result)
   end
 end
